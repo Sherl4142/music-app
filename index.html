@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mood to Music</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>🎵 Mood to Music Converter</h1>
+        <form method="POST">
+            <input type="text" name="mood" placeholder="How are you feeling today? (e.g. I feel tired, I am excited)">
+            <button type="submit">Play Song</button>
+        </form>
+
+        {% if song %}
+            <div class="result">
+                <h2>Detected Mood: {{ mood | capitalize }}</h2>
+                <h3>Recommended Song:</h3>
+                <p>{{ song.title }}</p>
+                {% if song.url %}
+                    <iframe src="https://open.spotify.com/embed/track/{{ song.url.split('/')[-1] }}"
+                            width="300" height="80" frameborder="0"
+                            allowtransparency="true" allow="encrypted-media">
+                    </iframe>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
